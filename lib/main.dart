@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:spend_book/tab_body.dart';
+import 'package:spend_book/tab_page.dart';
+// import 'package:spend_book/tab_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -7,80 +10,76 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Spend',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyTabbedPage(),
+      home: MyHomePage(title: "hello xuan"),
+      // initialRoute: '/',
+      // routes: {
+      //   '/': (context) => MyTabbedPage(),
+      //   '/timeline': (context) => TabBody(),
+      // },
     );
   }
 }
 
-class MyTabbedPage extends StatefulWidget {
-  const MyTabbedPage({Key key}) : super(key: key);
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+
+  final String title;
+
   @override
-  _MyTabbedPageState createState() => _MyTabbedPageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyTabbedPageState extends State<MyTabbedPage>
-    with SingleTickerProviderStateMixin {
-  final List<Tab> myTabs = <Tab>[
-    Tab(text: 'LEFT'),
-    Tab(text: 'MiddleLeft'),
-    Tab(text: 'Middle'),
-    Tab(text: 'MiddleRight'),
-    Tab(text: 'RIGHT'),
+class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
+  final _pages = [
+    MyTabbedPage(),
+    TabBody(),
+    MyTabbedPage(),
   ];
 
-  TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(
-      initialIndex: myTabs.length - 1,
-      vsync: this,
-      length: myTabs.length,
-    );
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
+  void onTapped(int value) {
+    setState(() {
+      _selectedIndex = value;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Control Panal"),
-        bottom: TabBar(
-          isScrollable: true,
-          controller: _tabController,
-          tabs: myTabs,
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: myTabs.map((Tab tab) {
-          final String label = tab.text.toLowerCase();
-          return Center(
-            child: Text(
-              'This is the $label tab',
-              style: const TextStyle(fontSize: 36),
-            ),
-          );
-        }).toList(),
+      // appBar: AppBar(
+      //   title: const Text("Main Page"),
+      // ),
+      backgroundColor: Colors.blueGrey,
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        currentIndex: _selectedIndex,
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+                size: 30.0,
+              ),
+              title: Text('1')),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.work,
+                size: 30.0,
+              ),
+              title: Text('2')),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.menu,
+                size: 30.0,
+              ),
+              title: Text('3')),
+        ],
+        onTap: onTapped,
       ),
     );
   }
