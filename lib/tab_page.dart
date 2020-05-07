@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:spend_book/tab_body.dart';
 
 class MyTabbedPage extends StatefulWidget {
-  const MyTabbedPage({Key key}) : super(key: key);
+  MyTabbedPage({Key key}) : super(key: key);
   @override
   _MyTabbedPageState createState() => _MyTabbedPageState();
 }
@@ -15,7 +16,6 @@ class _MyTabbedPageState extends State<MyTabbedPage>
     Tab(text: 'MiddleRight'),
     Tab(text: 'RIGHT'),
   ];
-
   TabController _tabController;
 
   @override
@@ -38,7 +38,7 @@ class _MyTabbedPageState extends State<MyTabbedPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Control Panal"),
+        title: Text("Control Panal"),
         bottom: TabBar(
           isScrollable: true,
           controller: _tabController,
@@ -49,20 +49,9 @@ class _MyTabbedPageState extends State<MyTabbedPage>
         controller: _tabController,
         children: myTabs.map((Tab tab) {
           final String label = tab.text.toLowerCase();
-          return Center(
-            child: Text(
-              'This is the $label tab',
-              style: const TextStyle(fontSize: 36),
-            ),
-          );
+          return TabBody(title: label);
         }).toList(),
       ),
-      // bottomNavigationBar: BottomAppBar(
-      //   shape: const CircularNotchedRectangle(),
-      //   child: Container(
-      //     height: 50.0,
-      //   ),
-      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => setState(() {
           // _count++;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:spend_book/tab_body.dart';
 import 'package:spend_book/tab_page.dart';
+import 'package:spend_book/timelient_page.dart';
+import 'package:spend_book/timeline_body.dart';
 // import 'package:spend_book/tab_page.dart';
 
 void main() => runApp(MyApp());
@@ -37,8 +38,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
   final _pages = [
     MyTabbedPage(),
-    TabBody(),
-    MyTabbedPage(),
+    TimelinePage(),
+    TimelineBody(),
   ];
 
   void onTapped(int value) {
@@ -51,10 +52,17 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(
-      //   title: const Text("Main Page"),
+      //   title: _selectedIndex == 0
+      //       ? const Text("Main Page")
+      //       : const Text("Timeline"),
       // ),
       backgroundColor: Colors.blueGrey,
-      body: _pages[_selectedIndex],
+      // body: _pages[_selectedIndex],
+      body: SafeArea(
+          child: IndexedStack(
+        index: _selectedIndex,
+        children: <Widget>[..._pages],
+      )),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
