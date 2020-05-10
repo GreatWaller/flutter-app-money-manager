@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:spend_book/timeline_body.dart';
 
+import 'new_record_page.dart';
+
 class TimelinePage extends StatefulWidget {
   TimelinePage({Key key}) : super(key: key);
   @override
@@ -54,7 +56,7 @@ class _TimelinePageState extends State<TimelinePage>
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => setState(() {
-          // _count++;
+          Navigator.push(context, NewRecord());
         }),
         // tooltip: 'Increment Counter',
         child: Icon(Icons.add),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spend_book/new_record_page.dart';
 import 'package:spend_book/tab_body.dart';
 
 class MyTabbedPage extends StatefulWidget {
@@ -55,9 +56,11 @@ class _MyTabbedPageState extends State<MyTabbedPage>
       floatingActionButton: FloatingActionButton(
         onPressed: () => setState(() {
           // _count++;
+          Navigator.push(context, NewRecord());
         }),
         // tooltip: 'Increment Counter',
         child: Icon(Icons.add),
+        heroTag: "main_page",
       ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
